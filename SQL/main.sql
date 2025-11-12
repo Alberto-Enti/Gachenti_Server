@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS user_types (
     type VARCHAR(16) NOT NULL UNIQUE
 );
 
+INSERT INTO user_types (type) VALUES("admin"), ("alumno"), ("profesor");
+
 CREATE TABLE IF NOT EXISTS users (
     id_user INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(24) NOT NULL,
@@ -18,6 +20,19 @@ CREATE TABLE IF NOT EXISTS users (
     registered DATETIME NOT NULL,
     id_user_type INT UNSIGNED NOT NULL,
     FOREIGN KEY (id_user_type) REFERENCES user_types(id_user_type)
+);
+
+INSERT INTO users (name, surname, username, email, password, birthdate, funds, registered, id_user_type)
+VALUES (
+    'Admin',
+    'admin',
+    'admin',
+    'admin@gachenti.com',
+    '456b7016a916a4b178dd72b947c152b7',
+    '2024-11-12',
+    9999.99,
+    '2024-11-12 13:25:42',
+    1
 );
 
 CREATE TABLE IF NOT EXISTS card_types (
