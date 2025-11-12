@@ -24,24 +24,24 @@ CREATE TABLE IF NOT EXISTS card_types (
     id_card_type INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     type VARCHAR(16) NOT NULL UNIQUE,
     abbr VARCHAR(4) NOT NULL UNIQUE,
-    description TEXT,
-    color CHAR(6)
+    description TEXT DEFAULT "",
+    color CHAR(6) DEFAULT "777777"
 );
 
 CREATE TABLE IF NOT EXISTS card_rarities (
     id_card_rarity INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     rarity VARCHAR(16) NOT NULL UNIQUE,
     abbr VARCHAR(4) NOT NULL UNIQUE,
-    description TEXT,
-    probability INT
+    description TEXT DEFAULT "",
+    probability INT DEFAULT 10
 );
 
 CREATE TABLE IF NOT EXISTS card_templates (
     id_card_template INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     card VARCHAR(32) NOT NULL,
     initial_price DECIMAL(6,2) NOT NULL,
-    description TEXT,
-    image VARCHAR(32),
+    description TEXT DEFAULT "",
+    image VARCHAR(32) DEFAULT "base.png",
     id_card_type INT UNSIGNED NOT NULL,
     id_card_rarity INT UNSIGNED NOT NULL,
     FOREIGN KEY (id_card_type) REFERENCES card_types(id_card_type),
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS card_templates (
 CREATE TABLE IF NOT EXISTS cards (
     id_card INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     price DECIMAL(6,2) NOT NULL,
-    discount INT,
+    discount INT DEFAULT 0,
     on_sale BOOLEAN NOT NULL,
     state INT NOT NULL,
     creation DATETIME NOT NULL,
