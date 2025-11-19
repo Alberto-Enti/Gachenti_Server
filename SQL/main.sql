@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(32) NOT NULL UNIQUE,
     password CHAR(32) NOT NULL,
     birthdate DATE NOT NULL,
-    funds DECIMAL(8,2) NOT NULL,
-    registered DATETIME NOT NULL,
+    funds DECIMAL(8,2) DEFAULT 0,
+    registered DATETIME DEFAULT CURRENT_TIMESTAMP,
     id_user_type INT UNSIGNED NOT NULL,
     FOREIGN KEY (id_user_type) REFERENCES user_types(id_user_type)
 );
