@@ -1,13 +1,24 @@
 <?php
 
 require("template.php");
+
+
+
+
 openHTML("", "portada");
+
 writeHeader();
+
+
 $datos = <<<EOD
 <article>
-	<h2>La carta mas cara</h2>
+	<h2>La carta más cara</h2>
 </article>
 EOD;
+
 writeMain($datos);
-closeHtml();
+
+
+closeHTML();
+
 ?>

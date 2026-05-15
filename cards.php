@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require("template.php");
 
 openHTML("Listado de cartas", "cards");
@@ -7,10 +9,24 @@ openHTML("Listado de cartas", "cards");
 writeHeader();
 
 $query = <<<EOD
-SELECT cards.id_card, card_templates.card, cards.price FROM cards LEFT JOIN card_templates ON cards.id_card_template = card_templates.id_card_template;
+SELECT
+	cards.id_card,
+	card_templates.card,
+	card_templates.image,
+	cards.price,
+	users.id_user,
+	users.username
+FROM
+	cards
+LEFT JOIN card_templates
+	ON cards.id_card_template = card_templates.id_card_template
+LEFT JOIN user_cards
+	ON user_cards.id_card = cards.id_card
+LEFT JOIN users
+	ON users.id_user = user_cards.id_user;
 EOD;
 
-$conn = mysqli_connect("localhost", "enti", "enti", "gachenti_db");
+$conn = mysqli_connect($db_server, $db_user, $db_pass, $db_db);
 if (!$conn) {
 	die("Error DB 1: Error en la conexión");
 }
@@ -24,16 +40,25 @@ if (mysqli_num_rows($result) <= 0) {
 	die("Error 1: No hay cartas");
 }
 
-echo "<ol>";
+$datos = "<ol>";
 while($card = mysqli_fetch_assoc($result)){
-	echo <<<EOD
-<li><strong>CardID:</strong> {$card["id_card"]}; <strong>Card:</strong> {$card["card"]}; <strong>Price:</strong> {$card["price"]}</li>
+	$datos .= <<<EOD
+<li><p><strong>CardID:</strong> {$card["id_card"]}</p>
+<p><strong>Card:</strong> {$card["card"]}</p>
+<p><img src="imgs/{$card["image"]}" class="card_img" /></p>
+<p><strong>Price:</strong> {$card["price"]}</p>
+<p><strong>Owner</strong>: {$card["username"]}</p>
+<form method="POST" action="card_buy.php">
+<input type="hidden" name="id_user" value="{$card["id_user"]}" />
+<input type="hidden" name="id_card" value="{$card["id_card"]}" />
+<input type="submit" value="Compra!!!" />
+</form></li>
 EOD;
 
 }
-echo "</ol>";
+$datos .= "</ol>";
 
-writeMain($contenido);
+writeMain($datos);
 
 closeHTML();
 

@@ -1,8 +1,6 @@
 <?php
 
 if (
-	!isset($_POST["name"]) ||
-	!isset($_POST["surname"]) ||
 	!isset($_POST["username"]) ||
 	!isset($_POST["password"]) ||
 	!isset($_POST["password2"]) ||
@@ -10,18 +8,6 @@ if (
 	!isset($_POST["email"])
 ) {
 	die("ERROR 1: Formulario no enviado.");
-}
-
-
-$name = $_POST["name"];
-if(strlen($name) < 3 || strlen($name) > 32){
-	die("ERROR 1: Nombre excede el número máximo de carácteres.");
-}
-
-
-$surname = $_POST["surname"];
-if(strlen($surname) < 3 || strlen($surname) > 16){
-	die("ERROR 2: Apellido excede el número máximo de carácteres.");
 }
 
 $username = $_POST["username"];
@@ -69,14 +55,15 @@ if($email_safe != $email){
 
 $password = md5($password);
 
-$conn = mysqli_connect("localhost", "enti", "enti", "gachenti");
+require_once("db_config.php");
+$conn = mysqli_connect($db_server, $db_user, $db_pass, $db_db);
 if(!$conn){
 	die("ERROR DB 1: Error en la conexión.");
 }
 
 $query = <<<EOD
 INSERT INTO users (name, surname, username, password, email, birthdate, id_user_type)
-VALUES ('{$name}','{$surname}' , '{$username}', '{$password}', '{$email_safe}', '{$birthdate}', 3)
+VALUES ('Usuario', 'Nuevo', '{$username}', '{$password}', '{$email_safe}', '{$birthdate}', 3)
 EOD;
 
 $result = mysqli_query($conn, $query);
@@ -86,14 +73,9 @@ if(!$result){
 
 $new_id = mysqli_insert_id($conn);
 
-echo "Registro completado correctamente. ID asignado: " . $new_id;
-
 session_start();
-
-$_SESSION["id_user"] = $user["id_user"];
-
+$_SESSION["id_user"] = $new_id;
 header("Location: dashboard.php");
-
 exit();
 
 ?>

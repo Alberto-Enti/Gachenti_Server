@@ -1,0 +1,85 @@
+html,body{
+margin:0;
+padding:0;
+}
+header{
+color:#fff;
+background-color:#000;
+}
+header h1{
+font-family:sans-serif;
+margin:0;
+padding:4px 8px;
+}
+header nav menu{
+display:flex;
+justify-content:space-evenly;
+padding:0;
+margin:0;
+}
+header nav li{
+margin:0;
+padding:0;
+list-style:none;
+}
+header nav a{
+color:#fff;
+text-decoration:none;
+}
+header nav a:hover{
+color:#ff0;
+text-decoration:underline;
+}
+
+.card_img{
+width:300px;
+}
+
+h3.section_title{
+text-align:center;
+}
+#get_lucky_cards{
+display:flex;
+justify-content:center;
+}
+#get_lucky_cards figure{
+margin:0;
+}
+.get_lucky_card{
+width:19%;
+transform: translateY(150%);
+opacity: 0;
+animation: 1s fadeIn forwards;
+}
+.get_lucky_card .card_img{
+width:98%;
+}
+
+.fade5{
+animation-delay:0s;
+}
+.fade4{
+animation-delay:1s;
+}
+.fade3{
+animation-delay:2s;
+}
+.fade2{
+animation-delay:3s;
+}
+.fade1{
+animation-delay:5s;
+}
+
+
+
+@keyframes fadeIn{
+  0% {
+    transform: translateY(150%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}

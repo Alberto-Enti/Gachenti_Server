@@ -1,63 +1,66 @@
 <?php
 
-function openHtml ($title = "", $id="default_html"){
-if($title==""){
-	$title = "gachenti: card trading game";
+function openHTML ($title = "", $id = "")
+{
+	if ($title == ""){
+		$title = "gachENTI: Tu Gacha de cartas de profes de ENTI";
+	}
+
+	$html_id = "";
+	if ($id != ""){
+		$html_id = " id=\"".$id."\"";
+
+	}
+
+	echo <<<EOD
+<!doctype html>
+<html>
+<head>
+<title>{$title}</title>
+<link rel="stylesheet" href="gachenti.css" /> 
+</head>
+<body{$html_id}>
+EOD;
+
 }
 
-$html_id = "";
-if($id!=""){
-$html_id= " id=\"".$id."\"";
-}
+function writeHeader ()
+{
+	echo <<<EOD
+<header>
+<h1>gachENTI</h1>
 
-echo <<<EOD
-	<!doctype html>
-	<html>
-	<head>
-		<title>{$title}</title>
-	</head>
-	<body{$html_id}>
+<nav>
+	<menu>
+		<li><a href="index.php">Portada</a></li>
+		<li><a href="cards.php">Cartas</a></li>
+		<li><a href="shop.php">Compra/Venta</a></li>
+		<li><a href="login.php">Login/Registro</a></li>
+	</menu>
+</nav>
+</header>
 EOD;
 }
 
-function writeHeader(){
-echo <<<EOD
-	<header>
-		<h1>Gachenti</h1>
-	</header>
-	<nav>
-		<menu>
-			<li><a href="index.php">Portada</a></li>
-			<li><a href="cards.php">Cartas</a></li>
-			<li><a href="shop.php">Compraventa</a></li>
-			<li><a href="login.php">Login/Register</a></li>
-		</menu>
-	</nav>
+function writeMain ($content)
+{
+	echo <<<EOD
+<main>
+{$content}
+</main>
 EOD;
 }
 
-function writeMain($content){
-echo <<<EOD
-	<main>
-	{$content}
-	</main>
+function closeHTML ()
+{
+	echo <<<EOD
+<footer>
+
+</footer>
+</body>
+</html>
 EOD;
 }
-
-function writeFooter(){
-echo <<<EOD
-	<footer>
-	</footer>
-EOD;
-}
-
-function closeHtml(){
-echo <<<EOD
-	</body>
-	</html>
-EOD;
-}
-
 
 
 ?>
