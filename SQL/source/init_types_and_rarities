@@ -1,0 +1,9 @@
+INSERT INTO card_types (type, abbr, description, color) VALUES 
+('Caliente', 'HOT', 'Bocata caliente', 'ffb8a8'),
+('Frío', 'COLD', 'Bocata frío', '9debff'),
+('Gourmet', 'GUR', 'Bocata gourmet', 'fffccb');
+
+INSERT INTO card_rarities (rarity, abbr, description, probability) VALUES 
+('Común', 'C', 'Común', 70),
+('Raro', 'R', 'Raro', 20),
+('Legendario', 'L', 'Legendario', 10);

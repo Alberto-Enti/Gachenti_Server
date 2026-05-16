@@ -28,7 +28,7 @@ VALUES (
     'admin',
     'admin',
     'admin@gachenti.com',
-    '456b7016a916a4b178dd72b947c152b7',
+    '21232f297a57a5a743894a0e4a801fc3',
     '2024-11-12',
     9999.99,
     '2024-11-12 13:25:42',
@@ -59,8 +59,8 @@ CREATE TABLE IF NOT EXISTS card_templates (
     image VARCHAR(32) DEFAULT "base.png",
     id_card_type INT UNSIGNED NOT NULL,
     id_card_rarity INT UNSIGNED NOT NULL,
-    FOREIGN KEY (id_card_type) REFERENCES card_types(id_card_type),
-    FOREIGN KEY (id_card_rarity) REFERENCES card_rarities(id_card_rarity)
+    FOREIGN KEY (id_card_type) REFERENCES card_types(id_card_type) ON DELETE RESTRICT,
+    FOREIGN KEY (id_card_rarity) REFERENCES card_rarities(id_card_rarity) ON DELETE RESTRICT 
 );
 
 CREATE TABLE IF NOT EXISTS cards (
@@ -78,6 +78,16 @@ CREATE TABLE IF NOT EXISTS users_cards (
     id_user_card INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     id_user INT UNSIGNED NOT NULL,
     id_card INT UNSIGNED NOT NULL,
-    FOREIGN KEY (id_user) REFERENCES users(id_user),
-    FOREIGN KEY (id_card) REFERENCES cards(id_card)
+    FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_card) REFERENCES cards(id_card) ON DELETE RESTRICT
 );
+
+/*
+DOC;
+Es importante utilizar on delete cascade pora evitar datos redundantes que puedan llegar a causar errores. 
+En el caso de hacer una query de una relación entre usuarios y cartas, si un usuario es eliminado, si no se utilizara cascade, la query podría dar problemas y no reflejar la realidad.
+Por otro lado, tampoco queremos que al hacer una query de relación, en el caso de que se haya eliminado una carta que se haya comprado, la relación se elimine, 
+Si bien en nuestro caso tampoco es muy relevante saber las transacciones de otros usuarios, en bdd comerciales, las transacciones DEBEN existir aunque el producto ya no exista 
+(Y con usuarios también pasa esto, pero esto ya es otro tema; NO Se tendría que eliminar el usuario sino desactivarlo y borrar datos personales como nombre, fechas, emails, etc... 
+pero el registro de que ha habido un usuario tiene que existir legamente siempre que haya una transaccion)
+*/

@@ -71,7 +71,60 @@ animation-delay:3s;
 animation-delay:5s;
 }
 
+#card_list {
+    display: grid;
+    /* Creamos columnas de mínimo 250px, que se ajustan solas al ancho de la pantalla */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px; /* Espacio entre cartas */
+    padding: 20px;
+    list-style: none; /* Quitamos los números del <ol> */
+}
 
+.card_item {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.card_item:hover {
+    transform: translateY(-5px); /* Efecto de levante al pasar el ratón */
+}
+
+.card_img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover; /* Recorta la imagen para que no se deforme */
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.card_item p {
+    margin: 5px 0;
+    font-family: sans-serif;
+    color: #333;
+}
+
+.card_item input[type="submit"] {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.card_item input[type="submit"]:hover {
+    background-color: #27ae60;
+}
 
 @keyframes fadeIn{
   0% {

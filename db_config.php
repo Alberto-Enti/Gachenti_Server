@@ -1,12 +1,6 @@
 <?php
 
-
-
-
-
-
-
-$db_server = "localhost";
+$db_server = "0.0.0.0";
 $db_user = "enti";
 $db_pass = "enti";
 $db_db = "gachenti";

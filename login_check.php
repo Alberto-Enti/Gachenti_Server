@@ -26,8 +26,8 @@ if ($password != $_POST["password"]){
 	die("Error 5: La contraseña está mal formada");
 }
 
-$password = md5($password);
 
+$password = md5($password);
 
 $query = <<<EOD
 SELECT id_user
@@ -50,6 +50,7 @@ if (!$result) {
 }
 
 if (mysqli_num_rows($result) != 1){
+	echo 'MD5 generado: ' . $password . '| MD5 esperado: 21232f297a57a5a743894a0e4a801fc3';
 	die("Error 6: El usuario o el password son erróneos");
 }
 
